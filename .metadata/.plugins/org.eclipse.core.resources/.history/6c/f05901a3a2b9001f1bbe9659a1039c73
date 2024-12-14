@@ -1,0 +1,5 @@
+package com.api_veiculos.controller;
+
+public class VeiculoController {
+
+}

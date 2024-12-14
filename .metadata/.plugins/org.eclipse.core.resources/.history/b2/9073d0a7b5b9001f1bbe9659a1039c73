@@ -1,0 +1,21 @@
+package com.api_cargainicial.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+@RestController
+@RequestMapping("/api/v1/carga")
+public class CargaController {
+
+    @Autowired
+    private FipeService fipeService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @PostMapping
+    public ResponseEntity<Void> carregarMarcas() {
+        List<Marca> marcas = fipeService.getMarcas();
+        marcas.forEach(marca -> rabbitTemplate.convertAndSend("marcasQueue", marca));
+        return ResponseEntity.ok().build();
+    }
+}

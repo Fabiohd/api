@@ -1,0 +1,15 @@
+package com.api_cargainicial.service;
+
+@Service
+public class FipeService {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public List<Marca> getMarcas() {
+        String url = "https://deividfortuna.github.io/fipe/marcas.json";
+        ResponseEntity<List<Marca>> response = restTemplate.exchange(
+                url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
+        return response.getBody();
+    }
+}
